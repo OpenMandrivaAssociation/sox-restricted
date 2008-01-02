@@ -23,6 +23,7 @@ BuildRequires:	oggvorbis-devel mad-devel gsm-devel libflac-devel libsndfile-deve
 %if %build_plf
 BuildRequires:	lame-devel
 %endif
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 SoX (Sound eXchange) is a sound file format converter for Linux,
