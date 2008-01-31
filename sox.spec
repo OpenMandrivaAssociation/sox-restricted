@@ -4,24 +4,32 @@
 %define distsuffix plf
 %endif
 
-%define	soxlib	st
-%define	major	0
-%define	libname	%mklibname %{soxlib} %{major}
+%define	major 0
+%define libname %mklibname %{name} %{major}
+%define develname %mklibname %{name} -d
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
-Version:	13.0.0
-Release:	%mkrel 6
-License: 	LGPL
+Version:	14.0.0
+Release:	%mkrel 1
+License:	LGPLv2+
 Group:		Sound
 Url:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.bz2
-#Patch0:		sox-13.0.0-fix-build-with-new-libflac.patch
-#Patch1:		sox-13.0.0-flac-decoder-hack.patch
-Patch2:		sox-13.0.0-new-flac.patch
-BuildRequires:	oggvorbis-devel mad-devel gsm-devel libflac-devel libsndfile-devel
+BuildRequires:	libalsa-devel
+BuildRequires:	oggvorbis-devel
+BuildRequires:	mad-devel
+BuildRequires:	gsm-devel
+BuildRequires:	libflac-devel
+BuildRequires:	libsndfile-devel
+BuildRequires:	ffmpeg-devel
+BuildRequires:	libsamplerate-devel
+BuildRequires:	ladspa-devel
+BuildRequires:	libltdl-devel
 %if %build_plf
 BuildRequires:	lame-devel
+BuildRequires:	libamrwb-devel
+BuildRequires:	libamrnb-devel
 %endif
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -39,35 +47,34 @@ or manipulate some sounds.
 This package is in PLF as it was build with lame encoder support, which is in PLF.
 %endif
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Libraries for SoX
 Group:		System/Libraries
+Obsoletes:	%mklibname st 0
 
 %description -n	%{libname}
 Libraries for SoX.
 
-%package -n	%{libname}-devel
+%package -n %{develname}
 Summary:	Development headers and libraries for libst
 Group:		Development/C
-Provides:	lib%{soxlib}-devel = %{version}-%{release}
-Provides:	%{soxlib}-devel = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Obsoletes:	%{name}-devel
-Requires:	%{libname} = %{version}
+Provides:	%mklibname st 0 -d
+Obsoletes:	%mklibname st 0 -d
 
-%description -n	%{libname}-devel
-Development headers and libraries for libst.
+%description -n	%{develname}
+Development headers and libraries for SoX.
 
 %prep
 %setup -q
-#%patch0 -p1 -b .newflac
-#%patch1 -p1 -b .flac_decoder_hack
-%patch2 -p1 -b .newflac
-autoconf
 
 %build
-CFLAGS="%{optflags} -DHAVE_SYS_SOUNDCARD_H=1 -D_FILE_OFFSET_BITS=64 -fPIC -DPIC" \
-%configure2_5x
+export CFLAGS="%{optflags} -DHAVE_SYS_SOUNDCARD_H=1 -D_FILE_OFFSET_BITS=64 -fPIC -DPIC"
+
+%configure2_5x \
+	--with-ladspa-path=%{_includedir}
 %make
 
 %install
@@ -89,8 +96,9 @@ ln -snf play %{buildroot}%{_bindir}/rec
 ln -s play.1%{_extension} %{buildroot}%{_mandir}/man1/rec.1%{_extension}
 
 rm -rf %{buildroot}%{_libdir}/*.la
+rm -rf %{buildroot}%{_libdir}/sox/*.{la,a}
 
-%post   -n %{libname} -p /sbin/ldconfig
+%post -n %{libname} -p /sbin/ldconfig
 
 %postun -n %{libname} -p /sbin/ldconfig
 
@@ -104,18 +112,19 @@ rm -rf %{buildroot}
 %{_bindir}/rec
 %{_bindir}/sox*
 %{_mandir}/man1/*
-%{_mandir}/man3/*
 %{_mandir}/man7/*
+%{_libdir}/%{name}/*.so*
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libst.so.%{major}*
+%{_libdir}/libsfx.so.%{major}*
+%{_libdir}/libsox.so.%{major}*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
-%{_bindir}/libst-config
-%{_libdir}/libst.a
-%{_libdir}/libst.so
+%{_libdir}/libsfx.a
+%{_libdir}/libsfx.so
+%{_libdir}/libsox.a
+%{_libdir}/libsox.so
 %{_includedir}/*.h
-
-
+%{_mandir}/man3/*
