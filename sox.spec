@@ -10,7 +10,7 @@
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
-Version:	14.0.0
+Version:	14.0.1
 Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Sound
