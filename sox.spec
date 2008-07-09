@@ -11,11 +11,12 @@
 Summary:	A general purpose sound file conversion tool
 Name:		sox
 Version:	14.0.1
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	LGPLv2+
 Group:		Sound
 Url:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.bz2
+Patch0:		sox-ffmpeg_fix.diff
 BuildRequires:	libalsa-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	mad-devel
@@ -68,9 +69,12 @@ Obsoletes:	%mklibname st 0 -d
 Development headers and libraries for SoX.
 
 %prep
+
 %setup -q
+%patch0 -p1
 
 %build
+autoreconf -fis
 export CFLAGS="%{optflags} -DHAVE_SYS_SOUNDCARD_H=1 -D_FILE_OFFSET_BITS=64 -fPIC -DPIC"
 
 %configure2_5x \
