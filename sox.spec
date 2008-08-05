@@ -10,13 +10,13 @@
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
-Version:	14.0.1
-Release:	%mkrel 3
+Version:	14.1.0
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Sound
-Url:		http://sox.sourceforge.net/
-Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.bz2
-Patch0:		sox-ffmpeg_fix.diff
+URL:		http://sox.sourceforge.net/
+Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.gz
+Patch0:		sox-14.1.0-external_liblpc10.diff
 BuildRequires:	libalsa-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	mad-devel
@@ -27,6 +27,7 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:	libsamplerate-devel
 BuildRequires:	ladspa-devel
 BuildRequires:	libltdl-devel
+BuildRequires:	lpc10-devel
 %if %build_plf
 BuildRequires:	lame-devel
 BuildRequires:	libamrwb-devel
@@ -130,9 +131,10 @@ rm -rf %{buildroot}
 
 %files -n %{develname}
 %defattr(-,root,root)
+%{_includedir}/*.h
 %{_libdir}/libsfx.a
 %{_libdir}/libsfx.so
 %{_libdir}/libsox.a
 %{_libdir}/libsox.so
-%{_includedir}/*.h
+%{_libdir}/pkgconfig/sox.pc
 %{_mandir}/man3/*
