@@ -11,12 +11,14 @@
 Summary:	A general purpose sound file conversion tool
 Name:		sox
 Version:	14.1.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Sound
 URL:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.gz
 Patch0:		sox-14.1.0-external_liblpc10.diff
+#gw from Gentoo, build with latest ffmpeg
+Patch1:		sox-14.1.0-lavc.patch
 BuildRequires:	libalsa-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	mad-devel
@@ -73,6 +75,7 @@ Development headers and libraries for SoX.
 
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 autoreconf -fis
