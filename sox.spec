@@ -10,6 +10,7 @@
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
+# fwang: 14.2.0 does not support current mlt
 Version:	14.1.0
 Release:	%mkrel 2
 License:	LGPLv2+
