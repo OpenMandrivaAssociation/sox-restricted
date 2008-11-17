@@ -4,22 +4,18 @@
 %define distsuffix plf
 %endif
 
-%define	major 0
+%define	major 1
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
-# fwang: 14.2.0 does not support current mlt
-Version:	14.1.0
-Release:	%mkrel 2
+Version:	14.2.0
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Sound
 URL:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.gz
-Patch0:		sox-14.1.0-external_liblpc10.diff
-#gw from Gentoo, build with latest ffmpeg
-Patch1:		sox-14.1.0-lavc.patch
 BuildRequires:	libalsa-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	mad-devel
@@ -73,10 +69,7 @@ Obsoletes:	%mklibname st 0 -d
 Development headers and libraries for SoX.
 
 %prep
-
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 autoreconf -fis
@@ -130,14 +123,11 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libsfx.so.%{major}*
 %{_libdir}/libsox.so.%{major}*
 
 %files -n %{develname}
 %defattr(-,root,root)
 %{_includedir}/*.h
-%{_libdir}/libsfx.a
-%{_libdir}/libsfx.so
 %{_libdir}/libsox.a
 %{_libdir}/libsox.so
 %{_libdir}/pkgconfig/sox.pc
