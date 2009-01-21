@@ -11,22 +11,29 @@
 Summary:	A general purpose sound file conversion tool
 Name:		sox
 Version:	14.2.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Sound
 URL:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.gz
-BuildRequires:	libalsa-devel
-BuildRequires:	oggvorbis-devel
-BuildRequires:	mad-devel
-BuildRequires:	gsm-devel
-BuildRequires:	libflac-devel
-BuildRequires:	libsndfile-devel
+Patch0:		sox-14.2.0-format_not_a_string_literal_and_no_format_arguments.diff
 BuildRequires:	ffmpeg-devel
-BuildRequires:	libsamplerate-devel
+BuildRequires:	file-devel
+BuildRequires:	gsm-devel
+BuildRequires:	id3tag-devel
 BuildRequires:	ladspa-devel
+BuildRequires:	libalsa-devel
+BuildRequires:	libflac-devel
 BuildRequires:	libltdl-devel
+BuildRequires:	libpng-devel
+BuildRequires:	libsamplerate-devel
+BuildRequires:	libsndfile-devel
+BuildRequires:	libtheora-devel
+BuildRequires:	libtool
+BuildRequires:	libwavpack-devel
 BuildRequires:	lpc10-devel
+BuildRequires:	mad-devel
+BuildRequires:	oggvorbis-devel
 %if %build_plf
 BuildRequires:	lame-devel
 BuildRequires:	libamrwb-devel
@@ -70,6 +77,7 @@ Development headers and libraries for SoX.
 
 %prep
 %setup -q
+%patch0 -p1 -b .format_not_a_string_literal_and_no_format_arguments
 
 %build
 autoreconf -fis
