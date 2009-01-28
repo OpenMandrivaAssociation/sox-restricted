@@ -85,7 +85,7 @@ export CFLAGS="%{optflags} -DHAVE_SYS_SOUNDCARD_H=1 -D_FILE_OFFSET_BITS=64 -fPIC
 
 %configure2_5x \
 	--with-ladspa-path=%{_includedir}
-%make LIBLTDL=%_libdir/libltdl.la
+%make
 
 %install
 rm -rf %{buildroot}
