@@ -78,14 +78,14 @@ Development headers and libraries for SoX.
 %prep
 %setup -q
 %patch0 -p1 -b .format_not_a_string_literal_and_no_format_arguments
+autoreconf -fis
 
 %build
-autoreconf -fis
 export CFLAGS="%{optflags} -DHAVE_SYS_SOUNDCARD_H=1 -D_FILE_OFFSET_BITS=64 -fPIC -DPIC"
 
 %configure2_5x \
 	--with-ladspa-path=%{_includedir}
-%make
+%make LIBLTDL=%_libdir/libltdl.la
 
 %install
 rm -rf %{buildroot}
