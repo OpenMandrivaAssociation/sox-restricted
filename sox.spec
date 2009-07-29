@@ -10,13 +10,13 @@
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
-Version:	14.2.0
-Release:	%mkrel 4
+Version:	14.3.0
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Sound
 URL:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.gz
-Patch0:		sox-14.2.0-format_not_a_string_literal_and_no_format_arguments.diff
+#Patch0:		sox-14.2.0-format_not_a_string_literal_and_no_format_arguments.diff
 BuildRequires:	ffmpeg-devel
 BuildRequires:	file-devel
 BuildRequires:	gsm-devel
@@ -34,6 +34,7 @@ BuildRequires:	libwavpack-devel
 BuildRequires:	lpc10-devel
 BuildRequires:	mad-devel
 BuildRequires:	oggvorbis-devel
+BuildRequires:	libgomp-devel
 %if %build_plf
 BuildRequires:	lame-devel
 BuildRequires:	libamrwb-devel
@@ -77,8 +78,8 @@ Development headers and libraries for SoX.
 
 %prep
 %setup -q
-%patch0 -p1 -b .format_not_a_string_literal_and_no_format_arguments
-autoreconf -fis
+#%patch0 -p1 -b .format_not_a_string_literal_and_no_format_arguments
+#autoreconf -fis
 
 %build
 export CFLAGS="%{optflags} -DHAVE_SYS_SOUNDCARD_H=1 -D_FILE_OFFSET_BITS=64 -fPIC -DPIC"
@@ -127,7 +128,7 @@ rm -rf %{buildroot}
 %{_bindir}/sox*
 %{_mandir}/man1/*
 %{_mandir}/man7/*
-%{_libdir}/%{name}/*.so*
+##%{_libdir}/%{name}/*.so*
 
 %files -n %{libname}
 %defattr(-,root,root)
