@@ -11,7 +11,7 @@
 Summary:	A general purpose sound file conversion tool
 Name:		sox
 Version:	14.3.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Sound
 URL:		http://sox.sourceforge.net/
