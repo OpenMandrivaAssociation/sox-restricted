@@ -2,16 +2,21 @@
 %{?_with_plf: %{expand: %%global build_plf 1}}
 %if %build_plf
 %define distsuffix plf
+%if %mdvver >= 201100
+# make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
+%define extrarelsuffix plf
+%endif
 %endif
 
 %define	major 1
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
+%define release %mkrel 1
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
-Version:	14.3.0
-Release:	%mkrel 3
+Version:	14.3.2
+Release:	%{release}%{?extrarelsuffix}
 License:	LGPLv2+
 Group:		Sound
 URL:		http://sox.sourceforge.net/
