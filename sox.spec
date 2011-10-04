@@ -11,7 +11,7 @@
 %define	major 1
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
@@ -21,7 +21,7 @@ License:	LGPLv2+
 Group:		Sound
 URL:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.gz
-#Patch0:		sox-14.2.0-format_not_a_string_literal_and_no_format_arguments.diff
+Patch0:		sox-14.3.2-ffmpeg.diff
 BuildRequires:	ffmpeg-devel
 BuildRequires:	file-devel
 BuildRequires:	gsm-devel
@@ -83,7 +83,7 @@ Development headers and libraries for SoX.
 
 %prep
 %setup -q
-#%patch0 -p1 -b .format_not_a_string_literal_and_no_format_arguments
+%patch0 -p0 -b .ffmpeg
 #autoreconf -fis
 
 %build
