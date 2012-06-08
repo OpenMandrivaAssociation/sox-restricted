@@ -8,31 +8,29 @@
 %endif
 %endif
 
-%define	major 1
+%define	major 2
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
-%define release %mkrel 2
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
-Version:	14.3.2
-Release:	%{release}%{?extrarelsuffix}
+Version:	14.4.0
+Release:	1%{?extrarelsuffix}
 License:	LGPLv2+
 Group:		Sound
 URL:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.gz
-Patch0:		sox-14.3.2-ffmpeg.diff
 BuildRequires:	ffmpeg-devel
-BuildRequires:	file-devel
+BuildRequires:	magic-devel
 BuildRequires:	gsm-devel
 BuildRequires:	id3tag-devel
 BuildRequires:	ladspa-devel
 BuildRequires:	libalsa-devel
 BuildRequires:	libflac-devel
-BuildRequires:	libltdl-devel
+BuildRequires:	libtool-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libsamplerate-devel
-BuildRequires:	libsndfile-devel
+BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool
 BuildRequires:	libwavpack-devel
@@ -83,7 +81,6 @@ Development headers and libraries for SoX.
 
 %prep
 %setup -q
-%patch0 -p0 -b .ffmpeg
 #autoreconf -fis
 
 %build
