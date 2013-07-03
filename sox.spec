@@ -11,36 +11,35 @@
 %define extrarelsuffix plf
 %endif
 
-%define major 2
+%define major	2
 %define libname %mklibname %{name} %{major}
-%define develname %mklibname %{name} -d
+%define devname %mklibname %{name} -d
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
 Version:	14.4.1
-Release:	1%{?extrarelsuffix}
+Release:	2%{?extrarelsuffix}
 License:	LGPLv2+
 Group:		Sound
-URL:		http://sox.sourceforge.net/
+Url:		http://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.bz2
-BuildRequires:	ffmpeg-devel
-BuildRequires:	magic-devel
+BuildRequires:	gomp-devel
 BuildRequires:	gsm-devel
-BuildRequires:	id3tag-devel
 BuildRequires:	ladspa-devel
-BuildRequires:	libalsa-devel
-BuildRequires:	libflac-devel
 BuildRequires:	libtool-devel
-BuildRequires:	libpng-devel
-BuildRequires:	libsamplerate-devel
-BuildRequires:	pkgconfig(sndfile)
-BuildRequires:	libtheora-devel
-BuildRequires:	libtool
-BuildRequires:	libwavpack-devel
 BuildRequires:	lpc10-devel
-BuildRequires:	mad-devel
-BuildRequires:	oggvorbis-devel
-BuildRequires:	libgomp-devel
+BuildRequires:	magic-devel
+BuildRequires:	pkgconfig(alsa)
+BuildRequires:	pkgconfig(flac)
+BuildRequires:	pkgconfig(id3tag)
+BuildRequires:	pkgconfig(libavcodec)
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(mad)
+BuildRequires:	pkgconfig(samplerate)
+BuildRequires:	pkgconfig(sndfile)
+BuildRequires:	pkgconfig(theora)
+BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	pkgconfig(wavpack)
 %if %{build_plf}
 BuildRequires:	lame-devel
 BuildRequires:	libamrwb-devel
@@ -65,19 +64,17 @@ support, which is in restricted.
 %package -n %{libname}
 Summary:	Libraries for SoX
 Group:		System/Libraries
-Obsoletes:	%{mklibname %{name} 0} < %{EVRD}
 
 %description -n %{libname}
 Libraries for SoX.
 
-%package -n %{develname}
+%package -n %{devname}
 Summary:	Development headers and libraries for libst
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n %{develname}
+%description -n %{devname}
 Development headers and libraries for SoX.
 
 %prep
@@ -88,6 +85,7 @@ Development headers and libraries for SoX.
 export CFLAGS="%{optflags} -DHAVE_SYS_SOUNDCARD_H=1 -D_FILE_OFFSET_BITS=64 -fPIC -DPIC"
 
 %configure2_5x \
+	--disable-static \
 	--with-ladspa-path=%{_includedir}
 %make
 
@@ -107,8 +105,6 @@ chmod 755 %{buildroot}%{_bindir}/soxplay
 ln -snf play %{buildroot}%{_bindir}/rec
 ln -s play.1%{_extension} %{buildroot}%{_mandir}/man1/rec.1%{_extension}
 
-rm -rf %{buildroot}%{_libdir}/sox/*.{la,a}
-
 %files
 %doc ChangeLog README NEWS AUTHORS
 %{_bindir}/play
@@ -120,9 +116,8 @@ rm -rf %{buildroot}%{_libdir}/sox/*.{la,a}
 %files -n %{libname}
 %{_libdir}/libsox.so.%{major}*
 
-%files -n %{develname}
+%files -n %{devname}
 %{_includedir}/*.h
-%{_libdir}/libsox.a
 %{_libdir}/libsox.so
 %{_libdir}/pkgconfig/sox.pc
 %{_mandir}/man3/*
