@@ -15,6 +15,7 @@
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 
+
 Summary:	A general purpose sound file conversion tool
 Name:		sox
 Version:	14.4.1
