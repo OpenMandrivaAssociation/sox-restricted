@@ -18,7 +18,7 @@
 Summary:	A general purpose sound file conversion tool
 Name:		sox
 Version:	14.4.1
-Release:	3%{?extrarelsuffix}
+Release:	4%{?extrarelsuffix}
 License:	LGPLv2+
 Group:		Sound
 Url:		http://sox.sourceforge.net/
@@ -32,7 +32,7 @@ BuildRequires:	magic-devel
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(id3tag)
-BuildRequires:	pkgconfig(libavcodec)
+BuildRequires:	pkgconfig(libavcodec) = 56.13.100
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(samplerate)
