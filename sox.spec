@@ -11,14 +11,14 @@
 %define extrarelsuffix plf
 %endif
 
-%define major	2
+%define major	3
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 
 Summary:	A general purpose sound file conversion tool
 Name:		sox
-Version:	14.4.1
-Release:	3%{?extrarelsuffix}
+Version:	14.4.2
+Release:	1%{?extrarelsuffix}
 License:	LGPLv2+
 Group:		Sound
 Url:		http://sox.sourceforge.net/
@@ -32,7 +32,6 @@ BuildRequires:	magic-devel
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(id3tag)
-BuildRequires:	pkgconfig(libavcodec)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(samplerate)
