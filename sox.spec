@@ -21,7 +21,7 @@ Version:	14.4.2
 Release:	1%{?extrarelsuffix}
 License:	LGPLv2+
 Group:		Sound
-Url:		http://sox.sourceforge.net/
+Url:		https://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.bz2
 BuildRequires:	gomp-devel
 BuildRequires:	gsm-devel
