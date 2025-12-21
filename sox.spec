@@ -23,6 +23,11 @@ License:	LGPLv2+
 Group:		Sound
 Url:		https://sox.sourceforge.net/
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/sox/%{name}-%{version}.tar.bz2
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	gomp-devel
 BuildRequires:	gsm-devel
 BuildRequires:	ladspa-devel
